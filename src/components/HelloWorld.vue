@@ -1,15 +1,21 @@
 <template>
   <div>
+    Калькулятор
+    <input type="number" v-model.number.trim.lazy="operand1">
+    <input type="number" v-model.number.trim.lazy="operand2">
+    <p> = {{ result }}</p>
+    <button v-for="operation in operations" :key="operation" @click="calculate(operation)">{{ operation }}</button>
+    <p v-if="error !== ''">{{ error }}</p>
+    <label class="check"><input type="checkbox" v-model="keyboardOn">Показать экранную клавиатуру(нажми на
+      чекбокс)</label>
+    <div v-if="keyboardOn">
+      <button v-for="key in keyNumber" :key="key" @click="keyNumberOn(key)">{{ key }}</button>
+    </div>
 
-    <input type="number" v-model.number.trim="operand1">
-    <input type="number" v-model.number.trim="operand2">
-    <p> = {{ sum }}</p>
-    <button @click="summary">+</button>
-    <button @click="diff">-</button>
-    <button @click="multiple">*</button>
-    <button @click="division">/</button>
-    <button @click="degree">^</button>
-    <button @click="divInt">%</button>
+    <input type="radio" id="one" name="operandsChoose" value="operand1" v-model="picked" checked>
+    <label for="one">operand 1</label>
+    <input type="radio" id="two" name="operandsChoose" value="operand2" v-model="picked">
+    <label for="two">operand 2</label>
 
   </div>
 </template>
@@ -18,39 +24,78 @@
 export default {
   data() {
     return {
-      operand1: '',
-      operand2: '',
-      sum: ''
+      picked: 'operand1',
+      keyboardOn: false,
+      operand1:0,
+      operand2: 0,
+      result: 0,
+      operations: ['+', '-', '*', '/', '^', '//'],
+      keyNumber: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '<<'],
+      error: ''
     }
   },
   methods: {
+    calculate(operation) {
+      this.error = ''
+      switch (operation) {
+        case '+':
+          this.summary()
+          break;
+        case '-':
+          this.diff()
+          break;
+        case '*':
+          this.multiple()
+          break;
+        case '/':
+          if (this.operand2 === 0) {
+            this.error = 'Нельзя делить на 0'
+          } else {
+            this.division()
+          }
+          break;
+        case '^':
+          this.degree()
+          break;
+        case '//':
+          if (this.operand2 === 0) {
+            this.error = 'Нельзя делить на 0'
+          } else {
+            this.divInt()
+          }
+          break;
+      }
+    },
     summary() {
-      this.sum = this.operand1 + this.operand2
-      console.log(this.sum)
+      this.result = this.operand1 + this.operand2
     },
     diff() {
-      this.sum = this.operand1 - this.operand2
+      this.result = this.operand1 - this.operand2
     },
-     multiple() {
-      this.sum = this.operand1 * this.operand2
+    multiple() {
+      this.result = this.operand1 * this.operand2
+    },
+    division() {
 
-    },
-     division() {
-      if (this.operand2 === 0) {
-        return false
-      } else {
-         this.sum = this.operand1 / this.operand2
-      }
+      this.result = this.operand1 / this.operand2
 
     },
     degree() {
-      this.sum = Math.pow(this.operand1, this.operand2)
-
+      this.result = Math.pow(this.operand1, this.operand2)
     },
     divInt() {
-      this.sum = Math.floor(this.operand1 / this.operand2)
+      this.result = Math.floor(this.operand1 / this.operand2)
 
-    }
+    },
+    keyNumberOn(key) {
+        if (key !== '<<') {
+          this[`${this.picked}`]  += `${key}`
+        } else {
+          this[`${this.picked}`]= this[`${this.picked}`].toString().slice(0, -1)
+        }
+        this[`${this.picked}`]=Number(this[`${this.picked}`])
+    },
+
   }
 }
 
@@ -58,6 +103,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h3 {
   margin: 40px 0 0;
 }
