@@ -1,10 +1,10 @@
 <template>
   <form class="form">
-    <input placeholder="Date" type="date" v-model="date">
-    <input placeholder="Category" type="text" v-model="category">
-    <input placeholder="Value" type="number" v-model="value">
+    <input placeholder="Date" type="text" v-model="date">
+    <input placeholder="Category" type="text" v-model="category" required>
+    <input placeholder="Value" type="number" v-model="value" required>
     <button class="btn__payment" type="button" @click="onClick">Send Payment</button>
-
+    <p>{{error}}</p>
   </form>
 </template>
 
@@ -14,7 +14,8 @@ export default {
     return {
       date: '',
       category: '',
-      value: ''
+      value: '',
+      error:''
     }
   },
   methods: {
@@ -26,7 +27,11 @@ export default {
       return `${d}.${m}.${y}`
     },
     onClick() {
+this.error=''
       const {value, category} = this
+      if (value ===''||category===''){
+        return this.error = 'Вы не ввели ничего в поля category или value'
+      }
       const data = {
         date: this.date || this.takeDateNow(),
         category,

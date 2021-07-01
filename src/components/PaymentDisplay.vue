@@ -6,7 +6,7 @@
       <div class="category">Category</div>
       <div class="value">Value</div>
     </div>
-    <PaymentInfo v-for="(payment,idx) in paymentList.slice((page-1)*4,(page-1)*4+limit)"
+    <PaymentInfo v-for="(payment,idx) in paymentList.slice((page-1)*5,(page-1)*5+limit)"
                  :key="idx"
                  :payment="payment"
                  :page="page"
