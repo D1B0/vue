@@ -41,7 +41,7 @@ export default {
     return {
       paymentList: [],
       visibleAddPayment: false,
-      pages: 0,
+      pages: 1,
       limit: 5,
       page: 1
     }
@@ -131,12 +131,11 @@ export default {
     }
   },
   created() {
-
     this.paymentList = this.fetchData()
-    this.pages = Math.ceil(this.paymentList.length / this.limit)
+    this.pages = Math.ceil((this.paymentList.length / this.limit))
   },
   updated() {
-    this.pages = Math.ceil(this.paymentList.length / this.limit)
+    this.pages = Math.ceil((this.paymentList.length / this.limit))
   }
 
 
