@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="payments">
     <div class="table">
       <div class="index">#</div>
       <div class="date">Date</div>
@@ -48,6 +48,9 @@ export default {
 </script>
 
 <style scoped>
+.payments{
+  height: 180px;
+}
 .table {
   width: 300px;
   height: 30px;
