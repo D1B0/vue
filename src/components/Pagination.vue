@@ -43,5 +43,28 @@ export default {
 </script>
 
 <style scoped>
+.pagination {
+  display: flex;
+  margin-top: 50px;
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgrey;
 
+}
+
+.pages {
+  margin: 0 10px 0 10px
+}
+
+.arrow {
+  margin: 0 10px 0 10px
+}
+
+.arrow:hover, .pages:hover {
+  color: red;
+
+  cursor: pointer;
+}
 </style>
