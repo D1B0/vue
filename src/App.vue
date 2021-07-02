@@ -7,18 +7,13 @@
     <PaymentDisplay :items="paymentList"
                     :page="page"
                     :limit="limit"/>
-    <div class="pagination">
-      <div class="arrow"
-      @click="beforeButton">
-        &#60;
-      </div>
-      <Pages class="pages" v-for="page in pages " :key="page" :page="page" @changePage="setPage"/>
-      <div class="arrow"
-      @click="afterButton">
-
-        &#62;
-      </div>
-    </div>
+    <Pagination
+        :pages="pages"
+        :page="page"
+        @afterBtn="afterButton"
+        @beforeBtn="beforeButton"
+        @setPages="setPage"
+    />
 
   </div>
 </template>
@@ -28,12 +23,12 @@
 
 import PaymentDisplay from "./components/PaymentDisplay";
 import AddPayment from "./components/AddPayment";
-import Pages from "./components/Pages";
+import Pagination from "./components/Pagination";
 
 export default {
   name: 'App',
   components: {
-    Pages,
+    Pagination,
     AddPayment,
     PaymentDisplay
   },
@@ -115,17 +110,17 @@ export default {
     setPage(page) {
       this.page = page
     },
-    beforeButton(){
-      if(this.page === 1){
+    beforeButton() {
+      if (this.page === 1) {
         return false
-      }else{
+      } else {
         this.page--
       }
     },
-    afterButton(){
-      if(this.page === this.pages){
+    afterButton() {
+      if (this.page === this.pages) {
         return false
-      }else{
+      } else {
         this.page++
       }
     }
@@ -163,9 +158,10 @@ export default {
   background: lightcoral;
   border-radius: 20px;
 }
-.pagination{
+
+.pagination {
   display: flex;
-  margin-top:50px;
+  margin-top: 50px;
   width: 300px;
   height: 50px;
   justify-content: center;
@@ -173,13 +169,16 @@ export default {
   border: 1px solid lightgrey;
 
 }
-.pages{
+
+.pages {
   margin: 0 10px 0 10px
 }
-.arrow{
+
+.arrow {
   margin: 0 10px 0 10px
 }
-.arrow:hover , .pages:hover{
+
+.arrow:hover, .pages:hover {
   color: red;
 
   cursor: pointer;
