@@ -138,14 +138,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 
 .btn {
   margin-top: 5px;
@@ -159,28 +152,5 @@ export default {
   border-radius: 20px;
 }
 
-.pagination {
-  display: flex;
-  margin-top: 50px;
-  width: 300px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid lightgrey;
 
-}
-
-.pages {
-  margin: 0 10px 0 10px
-}
-
-.arrow {
-  margin: 0 10px 0 10px
-}
-
-.arrow:hover, .pages:hover {
-  color: red;
-
-  cursor: pointer;
-}
 </style>
