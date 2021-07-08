@@ -1,11 +1,12 @@
 <template>
-  <div @click="setPage(page)">
+  <div @click="setCurrentPage(page)"
+ >
     {{ page }}
   </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions,mapMutations} from 'vuex'
 export default {
   props:{
     page:{
@@ -14,9 +15,16 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
-        'setPage',
+    ...mapActions([
+        "fetchData"
     ]),
+    ...mapMutations([
+        'setPage'
+    ]),
+    setCurrentPage(page){
+      this.setPage(page)
+      this.fetchData(page)
+    }
 
   },
 }

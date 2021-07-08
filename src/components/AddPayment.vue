@@ -49,22 +49,21 @@ export default {
     },
 
     onClick() {
-      let pageN = this.getPages()
-      let pageLength = this.getPaymentList()[`page${pageN}`].length + 1
-      let id = (this.getPages() - 1) * 5 + pageLength
+      // let pageN = this.getPages()
+      // let pageLength = this.getPaymentList()[`page${pageN}`].length + 1
+      // let id = (this.getPages() - 1) * 5 + pageLength
       this.error = ''
       const {value, category} = this
       if (value === '' || category === '') {
         return this.error = 'Вы не ввели ничего в поля category или value'
       }
       const data = {
-        id: id,
+        // id: ,
         date: this.date || this.takeDateNow(),
         category,
         value,
       }
       this.setAddPayment(data)
-      this.setPages()
     },
     addCategories() {
       this.setCategories(this.newCategory)

@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchData'
+      'fetchStart'
     ]),
 
     openAddPayment() {
@@ -41,7 +41,7 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.fetchStart()
   }
 
 
