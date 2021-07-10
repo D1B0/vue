@@ -54,7 +54,7 @@ export default {
     fastAddPayment(category,value){
       if (this.$store.getters.getAddPaymentVisible === false){
       this.setAddPaymentVisible()}
-      this.$router.push(`/add/payment/${category}?value=${value}`)
+      this.$router.push(`/add/payment/${category}?value=${value}&time=${new Date().getTime()}`)
 
     }
   },
