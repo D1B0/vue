@@ -64,7 +64,7 @@ export default {
     },
     actions: {
 
-        fetchStart(context, currentPage = 1) {
+        fetchData(context, currentPage = 1) {
             axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
                 .then(response => {
                         context.commit('setPages', response.data)
