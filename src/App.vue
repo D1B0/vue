@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchStart'
+      'fetchData'
     ]),
 
     openAddPayment() {
@@ -61,7 +61,7 @@ export default {
     }
   },
   created() {
-    this.fetchStart()
+    this.fetchData()
   },
  mounted() {
     this.$modal.EventBus.$on('show', this.onShow)

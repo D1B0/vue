@@ -70,26 +70,14 @@ export default {
 
     },
     actions: {
-        // async fetchDataAll(context) {
-        //     await axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
-        //         .then(response => {
-        //             context.commit("setPaymentList", response.data)
-        //             context.commit('setPages')
-        //         })
-        //
-        // },
-        fetchStart(context) {
-            axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
-                .then(response =>
-                    context.commit('setPages', response.data)
-                ).then(this.dispatch('fetchData', 1))
-        },
-        fetchData(context, currentPage) {
+        fetchData(context, currentPage = 1) {
             axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
                 .then(response => {
-                    context.commit('setPage', currentPage)
-                    context.commit("setPaymentList", {[`page${currentPage}`]: response.data[`page${currentPage}`]})
-                })
-        }
+                        context.commit('setPages', response.data)
+                        context.commit('setPage', currentPage)
+                        context.commit("setPaymentList", {[`page${currentPage}`]: response.data[`page${currentPage}`]})
+                    }
+                )
+        },
     }
 }
