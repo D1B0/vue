@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchStart'
+      'fetchData'
     ]),
     ...mapMutations([
         'setAddPaymentVisible'
@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    this.fetchStart()
+    this.fetchData()
     console.log(this.$route)
   }
 
