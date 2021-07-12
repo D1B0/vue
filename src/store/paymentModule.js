@@ -39,9 +39,9 @@ export default {
             //     state.paymentList[`page${Object.keys(state.paymentList).length}`] = [...state.paymentList[`page${Object.keys(state.paymentList).length}`], payload]
             //
             // }
-            console.log( state.paymentList[`page${state.currentPage}`])
+            console.log(state.paymentList[`page${state.currentPage}`])
             console.log(payload)
-            state.paymentList[`page${state.currentPage}`] = [...state.paymentList[`page${state.currentPage}`],payload]
+            state.paymentList[`page${state.currentPage}`] = [...state.paymentList[`page${state.currentPage}`], payload]
 
         },
         setCategories(state, payload) {
@@ -63,26 +63,16 @@ export default {
 
     },
     actions: {
-        // async fetchDataAll(context) {
-        //     await axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
-        //         .then(response => {
-        //             context.commit("setPaymentList", response.data)
-        //             context.commit('setPages')
-        //         })
-        //
-        // },
-        fetchStart(context) {
-            axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
-                .then(response =>
-                    context.commit('setPages', response.data)
-                ).then(this.dispatch('fetchData', 1))
-        },
-        fetchData(context, currentPage) {
+
+        fetchStart(context, currentPage = 1) {
             axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
                 .then(response => {
-                    context.commit('setPage', currentPage)
-                    context.commit("setPaymentList", {[`page${currentPage}`]: response.data[`page${currentPage}`]})
-                })
-        }
+                        context.commit('setPages', response.data)
+                        context.commit('setPage', currentPage)
+                        context.commit("setPaymentList", {[`page${currentPage}`]: response.data[`page${currentPage}`]})
+                    }
+                )
+        },
+
     }
 }
