@@ -6,7 +6,7 @@
     <p> = {{ result }}</p>
     <button v-for="operation in operations" :key="operation" @click="calculate(operation)" :name="operation">{{ operation }}</button>
     <p v-if="error !== ''">{{ error }}</p>
-    <label class="check"><input type="checkbox" name="keyboardBox" v-model="keyboardOn" @click="keyboardOn=!keyboardOn">Показать экранную клавиатуру(нажми на
+    <label class="check"><input type="checkbox" name="keyboardBox" v-model="keyboardOn">Показать экранную клавиатуру(нажми на
       чекбокс)</label>
     <div v-show="keyboardOn">
       <button v-for="key in keyNumber" :key="key" @click="keyNumberOn(key)" :name="key">{{ key }}</button>
