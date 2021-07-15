@@ -1,0 +1,90 @@
+<template>
+  <div class="payments">
+    <div class="table">
+      <div class="index">#</div>
+      <div class="date">Date</div>
+      <div class="category">Category</div>
+      <div class="value">Value</div>
+    </div>
+    <PaymentInfo v-for="payment in $store.getters.getPaymentList[`page${$store.getters.getPage}`]"
+                 :key='payment.id'
+                 :payment="payment"
+                />
+  </div>
+</template>
+
+<script>
+
+import PaymentInfo from "./PaymentInfo";
+export default {
+  name: "PaymentDisplay",
+  components: { PaymentInfo},
+
+
+
+
+}
+</script>
+
+<style scoped>
+.payments{
+  height: 180px;
+}
+.table {
+  width: 380px;
+  height: 30px;
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.index {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  height: 25px;
+  width: 50px;
+
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date {
+  display: flex;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  height: 25px;
+  width: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.category {
+
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  height: 25px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.value {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  height: 25px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+</style>
