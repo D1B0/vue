@@ -11,7 +11,7 @@
       <p>Add New Cost +</p></button>
     <PaymentDisplay/>
     <Pagination/>
-    <Calculator/>
+
   </div>
 
 </template>
@@ -24,7 +24,7 @@ import PaymentDisplay from "./components/PaymentDisplay";
 import Pagination from "./components/Pagination";
 import {mapActions} from 'vuex'
 import ModalWindow from "./components/ModalWindow";
-import Calculator from "@/components/Calculator";
+
 
 export default {
   name: 'App',
@@ -32,7 +32,6 @@ export default {
     Pagination,
     PaymentDisplay,
     ModalWindow,
-    Calculator
   },
   data() {
     return {
