@@ -44,12 +44,12 @@ import PaymentDisplay from "./components/PaymentDisplay";
 import Pagination from "./components/Pagination";
 import {mapActions, mapGetters} from 'vuex'
 import AddPayment from "./components/AddPayment";
-import {Doughnut, mixins} from 'vue-chartjs'
+import {Doughnut} from 'vue-chartjs'
 
 
 export default {
   name: 'App',
-  mixins: [Doughnut, mixins.reactiveData],
+  extends: Doughnut,
   components: {
     Pagination,
     PaymentDisplay,
@@ -58,8 +58,11 @@ export default {
   data() {
     return {
       dialog: false,
-      payments: [],
-      categories: [],
+      chartConfig: {
+        payments: [],
+        categories: []
+      }
+
 
     }
   },
@@ -67,23 +70,12 @@ export default {
     ...mapActions([
       'fetchData'
     ]),
-    ...mapGetters([
-      'getAllData',
-      'getCategories'
-    ]),
     getChart(categories, data) {
       this.renderChart({
             labels: categories,
             datasets: [{
               label: 'Payments',
-              data: categories.map(c => {
-                return data.reduce((total, r) => {
-                  if (r.category === c) {
-                    total += r.value
-                  }
-                  return total
-                }, 0)
-              })
+              data: data
               ,
               backgroundColor: [
                 'rgba(255, 99, 132)',
@@ -104,18 +96,34 @@ export default {
 
             }
           })
+    },
+    chartData(){
+      this.$data._chart.destroy()
     }
   },
   async mounted() {
+
     await this.fetchData()
 
-    this.payments = this.getAllData()
-    this.categories = this.getCategories()
-
-    this.getChart(this.categories, this.payments)
+    this.getChart(this.myCategories, this.myData)
   },
+  computed: {
+    ...mapGetters({
+      myCategories: 'getCategories',
+      myData: 'getAllData'
+
+    }),
+  },
+  watch: {
+    myCategories:async function newCategories(newValue) {
+      this.getChart(newValue,this.myData)
+    },
+    myData:async function newMyData(newValue) {
+      this.getChart(this.myCategories,newValue)
+    },
 
 
+  }
 
 
 }

@@ -5,7 +5,7 @@ export default {
         pages: 0,
         currentPage: 1,
         paymentList: {},
-        allPayment: {},
+        allPayment: [],
         categories: ['Food', 'Navigation', 'Service', 'Sport', 'Education', 'Entertainment'],
 
     },
@@ -28,7 +28,7 @@ export default {
         },
         setAddPayment(state, payload) {
             state.paymentList[`page${state.currentPage}`] = [...state.paymentList[`page${state.currentPage}`], payload]
-            state.allPayment[`page${state.currentPage}`] = [...state.allPayment[`page${state.currentPage}`], payload]
+            state.allPayment = [...state.allPayment, payload]
         },
         setCategories(state, payload) {
             let find = state.categories.find(el => el === `${payload}`)
@@ -49,7 +49,7 @@ export default {
             state.paymentList = {...state.paymentList}
         },
         setAllData(state, payload) {
-            state.allPayment = {...payload}
+            state.allPayment = [...Object.values(payload).flat()]
         }
     },
     getters: {
@@ -57,15 +57,22 @@ export default {
         getPages: state => state.pages,
         getPage: state => state.currentPage,
         getCategories: state => state.categories,
-        getAllData:state=> Object.values(state.allPayment).flat()
-
+        getAllData: state =>
+             state.categories.map(c => {
+                return state.allPayment.reduce((total, r) => {
+                    if (r.category === c) {
+                        total += Number(r.value)
+                    }
+                    return total
+                }, 0)
+            })
 
 
     },
     actions: {
 
-       async fetchData(context, currentPage = 1) {
-           await axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
+        async fetchData(context, currentPage = 1) {
+            await axios.get('https://raw.githubusercontent.com/DeniBog-script/vue/serverApi/paymentList.json')
                 .then(response => {
                         context.commit('setPages', response.data)
                         context.commit('setPage', currentPage)
