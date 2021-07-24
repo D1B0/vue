@@ -83,7 +83,7 @@ export default {
                   }
                   return total
                 }, 0)
-              }).map(Number)
+              })
               ,
               backgroundColor: [
                 'rgba(255, 99, 132)',
@@ -112,11 +112,6 @@ export default {
     this.payments = this.getAllData()
     this.categories = this.getCategories()
 
-    this.getChart(this.categories, this.payments)
-  },
-  updated() {
-    this.payments = this.getAllData()
-    this.categories = this.getCategories()
     this.getChart(this.categories, this.payments)
   },
 
