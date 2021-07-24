@@ -40,13 +40,20 @@ export default {
         },
         setEditPayment(state, payload) {
             let idx = state.paymentList[`page${state.currentPage}`].findIndex(token => token.id === payload.id)
+            let allIdx = state.allPayment.findIndex(token => token.id === payload.id)
+            console.log(allIdx)
             state.paymentList[`page${state.currentPage}`][idx] = {...state.paymentList[`page${state.currentPage}`][0], ...payload}
             state.paymentList = {...state.paymentList}
+            state.allPayment[allIdx]={...state.allPayment[0],...payload}
+            state.allPayment=[...state.allPayment]
         },
         setDeletePayment(state, payload) {
             let idx = state.paymentList[`page${state.currentPage}`].findIndex(token => token.id === payload.id)
+            let allIdx = state.allPayment.findIndex(token => token.id === payload.id)
             state.paymentList[`page${state.currentPage}`].splice(idx, 1)
             state.paymentList = {...state.paymentList}
+            state.allPayment.splice(allIdx,1)
+            state.allPayment=[...state.allPayment]
         },
         setAllData(state, payload) {
             state.allPayment = [...Object.values(payload).flat()]
